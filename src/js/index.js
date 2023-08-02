@@ -1,49 +1,16 @@
-document.addEventListener('DOMContentLoaded', function(){
-    
-    function setupDropdownMenus(buttonSelector, listSelector, tabObject, masivMarket) {
-        const categories = document.querySelectorAll(tabObject);
-        
-        let currentCategory = null;
-    
-        categories.forEach((category) => {
-            const button = category.querySelector(buttonSelector);
-            const list = category.querySelector(listSelector);
-    
-            button.addEventListener('click', () => {
+import sliderSwiper from './module/slider';
+import setupDropdownMenus from './module/tabbsAnimation';
+import scrollAnimation from './module/scrollAnimation';
 
-                categories.forEach((c) => {
-                    if (c !== category) {
-                        c.querySelector(listSelector).classList.remove('show');
-                    }
-                });
-                list.classList.toggle('show');
-                currentCategory = list.classList.contains('show') ? category : null;
-                categories.forEach((c) => {
-                    if (c !== category) {
-                        c.style.display = currentCategory ? 'none' : 'block';
-                    }
-                });
-                if (list.classList.contains('show')) {
-                    const listItems = list.querySelectorAll('li');
-                    let delay = 0.1;
-                    listItems.forEach((item) => {
-                        item.style.animationDelay = delay + 's';
-                        delay += 0.1;
-                    });
-                }
-            });
-        }),
-        document.addEventListener('click', (event) => {
-        const tabsMarket = document.querySelector(masivMarket);
-            if (!event.target.closest(masivMarket) && currentCategory) {
-                currentCategory.querySelector(listSelector).classList.remove('show');
-                currentCategory = null;
-                tabsMarket.querySelectorAll(tabObject).forEach(category => {
-                    category.style.display = 'block';
-                });
-            }
-        });
-    }
-  
-    setupDropdownMenus('.category-button', '.category-list', '.category', '.futer-head');
+document.addEventListener('DOMContentLoaded', function() {
+    sliderSwiper('.left-arrov', '.right-arrov', '.bilding-img', '.slid');
+    setupDropdownMenus('.category', '.category-button', '.category-list');
+
+    scrollAnimation('.info-kompany-block');
+    scrollAnimation('.nav-tabs');
+    scrollAnimation('.project-naim');
+    scrollAnimation('.bilding-img');
+    scrollAnimation('.plans'); 
+    scrollAnimation('form');
+    scrollAnimation('.foto-block');
 });
