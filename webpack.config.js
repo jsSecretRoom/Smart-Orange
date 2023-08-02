@@ -4,7 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // Можете изменить на 'development' во время разработки
+  mode: 'production', // Можете изменить на 'development' во время разработки
   entry: './src/js/index.js',
   output: {
     filename: 'bundle.js',
@@ -26,21 +26,30 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: './src/icons',
+        generator: {
+            filename: 'icons/[name][ext]'
+        }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: './src/img',
+        generator: {
+            filename: 'images/[name][ext]'
+        }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.svg$/,
-        type: 'asset/inline',
-      },
+        type: './src/fonts',
+        generator: {
+            filename: 'fonts/[name][ext]'
+        }
+      }
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './index.html',
     }),
   ],
 };
